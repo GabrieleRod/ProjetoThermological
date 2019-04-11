@@ -1,85 +1,82 @@
-S = input("Substância: ")
-m = float(input("Massa(em g): "))
-a = int(input("Temperatura inicial(em °C): "))
-h = int(input("Temperatura final (em °C): "))
-d = int(input("Temperatura de fusão/solidificação (em °C): "))
-f = int(input("Temperatura de ebulição/condensação (em °C): "))      
+Substancia = input("Substância: ")
+massa = float(input("Massa(em g): "))
+tempIn = int(input("Temperatura inicial(em °C): ")) #a
+tempFin = int(input("Temperatura final (em °C): ")) #h
+tempFuSo = int(input("Temperatura de fusão/solidificação (em °C): ")) #d
+tempEbCo = int(input("Temperatura de ebulição/condensação (em °C): ")) #f    
 N = "="*77
 print(N)
-D = input("Potência ou Quantidade de Calor? ")
 
-A = ["Quantidade de Calor", "quantidade de calor", "Quantidade de calor"] 
-B = ["Potência", "potência"]
-C = ["Quantidade de Calor", "quantidade de calor", "Quantidade de calor", "Potência", "potência"]
+pergunta = input("Potência (P) ou Quantidade de Calor (Q)? ")
 
-while D not in C:
+while D != "P" or D != "Q":
     D = input("Potência ou Quantidade de Calor? ")
-                                                                              #Fórmulas: 
+            
 if D in A:                                                                                                                                              
-    if a < d:                                                           #c = (Q) /(m *(Tf - Ti))      c = (P * t) /(m *(Tf - Ti))                
-        print(N)                                                        #L = (Q) / m                  L = (P * t) / m
+    if a < d:                                                                 
+        print(N)                                                     
         print("Fase: Sólida")
         if h >= f:
-            cs = (float(input("Quantidade de calor recebida (em cal): ")))/(m *(d - a))
+            calorSol = (float(input("Quantidade de calor recebida (em cal): ")))/(massa * (tempFuSo - tempIn))
         
             print(N)
             print("Mudança de Fase: Fusão")
-            Lf = (float(input("Quantidade de calor recebida (em cal): ")))/ m
+            latFuSo = (float(input("Quantidade de calor recebida (em cal): ")))/ massa
 
             print(N)
             print("Fase: Líquida")
-            cl = (float(input("Quantidade de calor recebida (em cal): ")))/(m *(f - d))
+            calorLiq = (float(input("Quantidade de calor recebida (em cal): ")))/(massa * (tempEbCo - tempFuSo))
 
             print(N)
             print("Mudança de Fase: Ebulição")
-            Le = (float(input("Quantidade de calor recebida (em cal): ")))/ m
+            latEbCo = (float(input("Quantidade de calor recebida (em cal): ")))/ massa
 
             print(N)
             print("Fase: Gasosa")
-            cg = (float(input("Quantidade de calor recebida (em cal): ")))/(m *(h - f))
+            calorGas = (float(input("Quantidade de calor recebida (em cal): ")))/(massa * (tempFin - tempEbCo))
 
             print(N)
-            print("Calor específico do estado sólido: {:.1f} cal/g°C".format(cs))
-            print("Calor latente de fusão: {:.1f} cal/g".format(Lf))
-            print("Calor específico do estado líquido: {:.1f} cal/g°C".format(cl))
-            print("Calor eatente de ebulição: {:.1f} cal/g".format(Le))
-            print("Calor específico do estado gasoso: {:.1f} cal/g°C".format(cg))
-        elif d <= h < f:
-            cs = (float(input("Quantidade de calor recebida (em cal): ")))/(m *(d - a))
+            print("Calor específico do estado sólido: {:.1f} cal/g°C".format(calorSol))
+            print("Calor latente de fusão: {:.1f} cal/g".format(latFuSo))
+            print("Calor específico do estado líquido: {:.1f} cal/g°C".format(calorLiq))
+            print("Calor eatente de ebulição: {:.1f} cal/g".format(latEbCo))
+            print("Calor específico do estado gasoso: {:.1f} cal/g°C".format(calorGas))
+        elif tempFuSo <= tempFin < temEbCo:
+            calorSol = (float(input("Quantidade de calor recebida (em cal): ")))/(massa * (tempFuSo - tempIn))
 
             print(N)
             print("Mudança de Fase: Fusão")
-            Lf = (float(input("Quantidade de calor recebida (em cal): ")))/ m
+            latFuSo = (float(input("Quantidade de calor recebida (em cal): ")))/ massa
 
             print(N)
             print("Fase: Líquida")
-            cl = (float(input("Quantidade de calor recebida (em cal): ")))/(m *(h - d))
+            calorLiq = (float(input("Quantidade de calor recebida (em cal): ")))/(massa * (tempFin - tempFuSo))
         
             print(N)
-            print("Calor específico do estado sólido: {:.1f} cal/g°C".format(cs))
-            print("Calor latente de fusão: {:.1f} cal/g".format(Lf))
-            print("Calor específico do estado líquido: {:.1f} cal/g°C".format(cl))
+            print("Calor específico do estado sólido: {:.1f} cal/g°C".format(calorSol))
+            print("Calor latente de fusão: {:.1f} cal/g".format(latFuSo))
+            print("Calor específico do estado líquido: {:.1f} cal/g°C".format(calorLiq))
         else:
-            if h > a:
-                cs = (float(input("Quantidade de calor recebida (em cal): ")))/(m *(h - a))
+            if tempFin > tempIn:
+                calorSol = (float(input("Quantidade de calor recebida (em cal): ")))/(massa * (tempFin - tempIn))
 
                 print(N)
-                print("Calor específico do estado sólido: {:.1f} cal/g°C".format(cs))
-            elif h < a:
-                cs = (-(float(input("Quantidade de calor cedida (em cal): "))))/(m *(h - a))
+                print("Calor específico do estado sólido: {:.1f} cal/g°C".format(calorSol))
+            elif tempFin < tempIn:
+                calorSol = (-(float(input("Quantidade de calor cedida (em cal): "))))/(massa * (tempFin - tempIn))
 
                 print(N)
-                print("Calor específico do estado sólido: {:.1f} cal/g°C".format(cs))
+                print("Calor específico do estado sólido: {:.1f} cal/g°C".format(calorSol))
 
-    elif d <= a < f:
+    elif tempFuSo <= tempIn < tempEbCo:
         print(N)
         print("Fase: Líquida")
         if h >= f:
-            cl = (float(input("Quantidade de calor recebida (em cal): ")))/(m *(f - a))
+            calorLiq = (float(input("Quantidade de calor recebida (em cal): ")))/(massa * (tempEbCo - tempIn))
             
             print(N)
             print("Mudança de Fase: Ebulição")
-            Le = (float(input("Quantidade de calor recebida (em cal): ")))/ m
+            latEbCo = (float(input("Quantidade de calor recebida (em cal): ")))/ massa # PAROU POR AQUUUI
 
             print(N)
             print("Fase: Gasosa")
